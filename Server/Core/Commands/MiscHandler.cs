@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using xServer.Core.Helper;
 using xServer.Core.Networking;
 using xServer.Core.Packets.ClientPackets;
 using xServer.Core.Utilities;
@@ -25,6 +26,14 @@ namespace xServer.Core.Commands
         {
             if (CanceledDownloads.ContainsKey(packet.ID) || string.IsNullOrEmpty(packet.Filename))
                 return;
+
+            // don't escape from download directory
+            if (FileHelper.CheckPathForIllegalChars(packet.Filename))
+            {
+                // disconnect malicious client
+                client.Disconnect();
+                return;
+            }
 
             if (!Directory.Exists(client.Value.DownloadDirectory))
                 Directory.CreateDirectory(client.Value.DownloadDirectory);

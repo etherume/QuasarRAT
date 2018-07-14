@@ -1,6 +1,24 @@
-#QuasarRAT Changelog
+# QuasarRAT Changelog
 
-##Quasar v1.2.0.0 [12.10.2015]
+## Quasar v1.3.0.0 [28.09.2016]
+* Added Registry Editor
+* Added Remote Webcam
+* Added Windows DPI scaling support
+* Added IPv6 support
+* Added ability to elevate Client
+* Added full Unicode support
+* Added Remote TCP Connections Viewer
+* Added option to hide sub directory of installation path
+* Improved cryptography
+* Fixed XSS vulnerability in Keylogger Logs
+* Fixed Remote Messagebox having wrong icon
+* Fixed FileZilla Recovery base64 decoding
+* Fixed UPnP discovery freezing in some cases
+* Fixed IP Geolocation
+* Fixed Client loses Administrator privileges on restart
+* Some minor improvements
+
+## Quasar v1.2.0.0 [12.10.2015]
 * Added Client restart on unhandled exceptions
 * Added additional settings to Keylogger (set/hide log-directory)
 * Added encrypted Keylogger logs
@@ -14,7 +32,7 @@
 * Fixed Remote Desktop lagging with mouse input and maximized window
 * Some minor improvements
 
-##Quasar v1.1.0.0 [30.08.2015]
+## Quasar v1.1.0.0 [30.08.2015]
 * **Changed Target Framework to .NET Framework 4.0 Client Profile**
 * Added deletion of ZoneIdentifier file when installing
 * Improved Client installation error handling
@@ -37,11 +55,11 @@
 * Fixed Client registry access
 * Removed Statistics window, will be remade in a later version
 
-##Quasar v1.0.0.0 [22.08.2015]
+## Quasar v1.0.0.0 [22.08.2015]
 * **xRAT is now Quasar**
 * Added Password Recovery (Common Browsers and FTP Clients)
 * Added Server compatiblity with Mono (Server now runs on Linux with Mono installed)
- * Client Builder works also on Linux/Mono
+  * Client Builder works also on Linux/Mono
 * Added ability to upload batch files
 * Added Client support for multiple hosts
 * Added maximum simultaneous file downloads/uploads (current max: 2)

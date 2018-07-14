@@ -73,23 +73,24 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.installationPage = new System.Windows.Forms.TabPage();
+            this.chkHideSubDirectory = new System.Windows.Forms.CheckBox();
             this.line7 = new xServer.Controls.Line();
             this.label10 = new System.Windows.Forms.Label();
             this.line4 = new xServer.Controls.Line();
             this.label5 = new System.Windows.Forms.Label();
             this.chkInstall = new System.Windows.Forms.CheckBox();
-            this.lblInstallname = new System.Windows.Forms.Label();
-            this.txtInstallname = new System.Windows.Forms.TextBox();
+            this.lblInstallName = new System.Windows.Forms.Label();
+            this.txtInstallName = new System.Windows.Forms.TextBox();
             this.txtRegistryKeyName = new System.Windows.Forms.TextBox();
             this.lblExtension = new System.Windows.Forms.Label();
             this.lblRegistryKeyName = new System.Windows.Forms.Label();
             this.chkStartup = new System.Windows.Forms.CheckBox();
             this.rbAppdata = new System.Windows.Forms.RadioButton();
             this.chkHide = new System.Windows.Forms.CheckBox();
-            this.lblInstallpath = new System.Windows.Forms.Label();
-            this.lblInstallsub = new System.Windows.Forms.Label();
+            this.lblInstallDirectory = new System.Windows.Forms.Label();
+            this.lblInstallSubDirectory = new System.Windows.Forms.Label();
             this.lblPreviewPath = new System.Windows.Forms.Label();
-            this.txtInstallsub = new System.Windows.Forms.TextBox();
+            this.txtInstallSubDirectory = new System.Windows.Forms.TextBox();
             this.txtPreviewPath = new System.Windows.Forms.TextBox();
             this.assemblyPage = new System.Windows.Forms.TabPage();
             this.iconPreview = new System.Windows.Forms.PictureBox();
@@ -324,7 +325,6 @@
             // 
             // btnMutex
             // 
-            this.btnMutex.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMutex.Location = new System.Drawing.Point(262, 158);
             this.btnMutex.Name = "btnMutex";
             this.btnMutex.Size = new System.Drawing.Size(121, 23);
@@ -588,6 +588,7 @@
             // installationPage
             // 
             this.installationPage.BackColor = System.Drawing.SystemColors.Control;
+            this.installationPage.Controls.Add(this.chkHideSubDirectory);
             this.installationPage.Controls.Add(this.line7);
             this.installationPage.Controls.Add(this.label10);
             this.installationPage.Controls.Add(this.line4);
@@ -596,19 +597,19 @@
             this.installationPage.Controls.Add(this.picUAC1);
             this.installationPage.Controls.Add(this.chkInstall);
             this.installationPage.Controls.Add(this.rbSystem);
-            this.installationPage.Controls.Add(this.lblInstallname);
+            this.installationPage.Controls.Add(this.lblInstallName);
             this.installationPage.Controls.Add(this.rbProgramFiles);
-            this.installationPage.Controls.Add(this.txtInstallname);
+            this.installationPage.Controls.Add(this.txtInstallName);
             this.installationPage.Controls.Add(this.txtRegistryKeyName);
             this.installationPage.Controls.Add(this.lblExtension);
             this.installationPage.Controls.Add(this.lblRegistryKeyName);
             this.installationPage.Controls.Add(this.chkStartup);
             this.installationPage.Controls.Add(this.rbAppdata);
             this.installationPage.Controls.Add(this.chkHide);
-            this.installationPage.Controls.Add(this.lblInstallpath);
-            this.installationPage.Controls.Add(this.lblInstallsub);
+            this.installationPage.Controls.Add(this.lblInstallDirectory);
+            this.installationPage.Controls.Add(this.lblInstallSubDirectory);
             this.installationPage.Controls.Add(this.lblPreviewPath);
-            this.installationPage.Controls.Add(this.txtInstallsub);
+            this.installationPage.Controls.Add(this.txtInstallSubDirectory);
             this.installationPage.Controls.Add(this.txtPreviewPath);
             this.installationPage.Location = new System.Drawing.Point(140, 4);
             this.installationPage.Name = "installationPage";
@@ -616,6 +617,16 @@
             this.installationPage.Size = new System.Drawing.Size(391, 376);
             this.installationPage.TabIndex = 1;
             this.installationPage.Text = "Installation Settings";
+            // 
+            // chkHideSubDirectory
+            // 
+            this.chkHideSubDirectory.AutoSize = true;
+            this.chkHideSubDirectory.Location = new System.Drawing.Point(186, 185);
+            this.chkHideSubDirectory.Name = "chkHideSubDirectory";
+            this.chkHideSubDirectory.Size = new System.Drawing.Size(185, 17);
+            this.chkHideSubDirectory.TabIndex = 37;
+            this.chkHideSubDirectory.Text = "Set subdir attributes to hidden";
+            this.chkHideSubDirectory.UseVisualStyleBackColor = true;
             // 
             // line7
             // 
@@ -664,23 +675,23 @@
             this.chkInstall.UseVisualStyleBackColor = true;
             this.chkInstall.CheckedChanged += new System.EventHandler(this.chkInstall_CheckedChanged);
             // 
-            // lblInstallname
+            // lblInstallName
             // 
-            this.lblInstallname.AutoSize = true;
-            this.lblInstallname.Location = new System.Drawing.Point(17, 156);
-            this.lblInstallname.Name = "lblInstallname";
-            this.lblInstallname.Size = new System.Drawing.Size(73, 13);
-            this.lblInstallname.TabIndex = 8;
-            this.lblInstallname.Text = "Install Name:";
+            this.lblInstallName.AutoSize = true;
+            this.lblInstallName.Location = new System.Drawing.Point(17, 156);
+            this.lblInstallName.Name = "lblInstallName";
+            this.lblInstallName.Size = new System.Drawing.Size(73, 13);
+            this.lblInstallName.TabIndex = 8;
+            this.lblInstallName.Text = "Install Name:";
             // 
-            // txtInstallname
+            // txtInstallName
             // 
-            this.txtInstallname.Location = new System.Drawing.Point(182, 153);
-            this.txtInstallname.Name = "txtInstallname";
-            this.txtInstallname.Size = new System.Drawing.Size(170, 22);
-            this.txtInstallname.TabIndex = 9;
-            this.txtInstallname.TextChanged += new System.EventHandler(this.HasChangedSettingAndFilePath);
-            this.txtInstallname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInstallname_KeyPress);
+            this.txtInstallName.Location = new System.Drawing.Point(182, 153);
+            this.txtInstallName.Name = "txtInstallName";
+            this.txtInstallName.Size = new System.Drawing.Size(170, 22);
+            this.txtInstallName.TabIndex = 9;
+            this.txtInstallName.TextChanged += new System.EventHandler(this.HasChangedSettingAndFilePath);
+            this.txtInstallName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInstallname_KeyPress);
             // 
             // txtRegistryKeyName
             // 
@@ -743,23 +754,23 @@
             this.chkHide.UseVisualStyleBackColor = true;
             this.chkHide.CheckedChanged += new System.EventHandler(this.HasChangedSetting);
             // 
-            // lblInstallpath
+            // lblInstallDirectory
             // 
-            this.lblInstallpath.AutoSize = true;
-            this.lblInstallpath.Location = new System.Drawing.Point(17, 47);
-            this.lblInstallpath.Name = "lblInstallpath";
-            this.lblInstallpath.Size = new System.Drawing.Size(67, 13);
-            this.lblInstallpath.TabIndex = 2;
-            this.lblInstallpath.Text = "Install Path:";
+            this.lblInstallDirectory.AutoSize = true;
+            this.lblInstallDirectory.Location = new System.Drawing.Point(17, 47);
+            this.lblInstallDirectory.Name = "lblInstallDirectory";
+            this.lblInstallDirectory.Size = new System.Drawing.Size(90, 13);
+            this.lblInstallDirectory.TabIndex = 2;
+            this.lblInstallDirectory.Text = "Install Directory:";
             // 
-            // lblInstallsub
+            // lblInstallSubDirectory
             // 
-            this.lblInstallsub.AutoSize = true;
-            this.lblInstallsub.Location = new System.Drawing.Point(17, 126);
-            this.lblInstallsub.Name = "lblInstallsub";
-            this.lblInstallsub.Size = new System.Drawing.Size(95, 13);
-            this.lblInstallsub.TabIndex = 6;
-            this.lblInstallsub.Text = "Install Subfolder:";
+            this.lblInstallSubDirectory.AutoSize = true;
+            this.lblInstallSubDirectory.Location = new System.Drawing.Point(17, 126);
+            this.lblInstallSubDirectory.Name = "lblInstallSubDirectory";
+            this.lblInstallSubDirectory.Size = new System.Drawing.Size(109, 13);
+            this.lblInstallSubDirectory.TabIndex = 6;
+            this.lblInstallSubDirectory.Text = "Install Subdirectory:";
             // 
             // lblPreviewPath
             // 
@@ -770,14 +781,14 @@
             this.lblPreviewPath.TabIndex = 12;
             this.lblPreviewPath.Text = "Installation Location Preview:";
             // 
-            // txtInstallsub
+            // txtInstallSubDirectory
             // 
-            this.txtInstallsub.Location = new System.Drawing.Point(182, 123);
-            this.txtInstallsub.Name = "txtInstallsub";
-            this.txtInstallsub.Size = new System.Drawing.Size(201, 22);
-            this.txtInstallsub.TabIndex = 7;
-            this.txtInstallsub.TextChanged += new System.EventHandler(this.HasChangedSettingAndFilePath);
-            this.txtInstallsub.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInstallsub_KeyPress);
+            this.txtInstallSubDirectory.Location = new System.Drawing.Point(182, 123);
+            this.txtInstallSubDirectory.Name = "txtInstallSubDirectory";
+            this.txtInstallSubDirectory.Size = new System.Drawing.Size(201, 22);
+            this.txtInstallSubDirectory.TabIndex = 7;
+            this.txtInstallSubDirectory.TextChanged += new System.EventHandler(this.HasChangedSettingAndFilePath);
+            this.txtInstallSubDirectory.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtInstallsub_KeyPress);
             // 
             // txtPreviewPath
             // 
@@ -1060,11 +1071,11 @@
             // chkHideLogDirectory
             // 
             this.chkHideLogDirectory.AutoSize = true;
-            this.chkHideLogDirectory.Location = new System.Drawing.Point(316, 72);
+            this.chkHideLogDirectory.Location = new System.Drawing.Point(20, 72);
             this.chkHideLogDirectory.Name = "chkHideLogDirectory";
-            this.chkHideLogDirectory.Size = new System.Drawing.Size(64, 17);
+            this.chkHideLogDirectory.Size = new System.Drawing.Size(197, 17);
             this.chkHideLogDirectory.TabIndex = 7;
-            this.chkHideLogDirectory.Text = "Hidden";
+            this.chkHideLogDirectory.Text = "Set directory attributes to hidden";
             this.chkHideLogDirectory.UseVisualStyleBackColor = true;
             this.chkHideLogDirectory.CheckedChanged += new System.EventHandler(this.HasChangedSetting);
             // 
@@ -1113,12 +1124,12 @@
             this.chkKeylogger.TabIndex = 4;
             this.chkKeylogger.Text = "Enable keyboard logging";
             this.chkKeylogger.UseVisualStyleBackColor = true;
-            this.chkKeylogger.CheckedChanged += new System.EventHandler(this.HasChangedSetting);
+            this.chkKeylogger.CheckedChanged += new System.EventHandler(this.chkKeylogger_CheckedChanged);
             // 
             // FrmBuilder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(535, 424);
             this.Controls.Add(this.builderTabs);
@@ -1164,15 +1175,15 @@
         private System.Windows.Forms.Label lblHost;
         private System.Windows.Forms.Label lblDelay;
         private System.Windows.Forms.CheckBox chkInstall;
-        private System.Windows.Forms.TextBox txtInstallname;
-        private System.Windows.Forms.Label lblInstallname;
+        private System.Windows.Forms.TextBox txtInstallName;
+        private System.Windows.Forms.Label lblInstallName;
         private System.Windows.Forms.TextBox txtMutex;
         private System.Windows.Forms.Label lblMutex;
         private System.Windows.Forms.Label lblExtension;
-        private System.Windows.Forms.Label lblInstallpath;
+        private System.Windows.Forms.Label lblInstallDirectory;
         private System.Windows.Forms.RadioButton rbAppdata;
-        private System.Windows.Forms.TextBox txtInstallsub;
-        private System.Windows.Forms.Label lblInstallsub;
+        private System.Windows.Forms.TextBox txtInstallSubDirectory;
+        private System.Windows.Forms.Label lblInstallSubDirectory;
         private System.Windows.Forms.Label lblPreviewPath;
         private System.Windows.Forms.TextBox txtPreviewPath;
         private System.Windows.Forms.Button btnMutex;
@@ -1250,5 +1261,6 @@
         private System.Windows.Forms.CheckBox chkHideLogDirectory;
         private System.Windows.Forms.NumericUpDown numericUpDownDelay;
         private System.Windows.Forms.NumericUpDown numericUpDownPort;
+        private System.Windows.Forms.CheckBox chkHideSubDirectory;
     }
 }

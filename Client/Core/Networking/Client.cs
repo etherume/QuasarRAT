@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using xClient.Core.Compression;
@@ -271,19 +272,19 @@ namespace xClient.Core.Networking
         }
 
         /// <summary>
-        /// Attempts to connect to the specified host on the specified port.
+        /// Attempts to connect to the specified ip address on the specified port.
         /// </summary>
-        /// <param name="host">The host (or server) to connect to.</param>
+        /// <param name="ip">The ip address to connect to.</param>
         /// <param name="port">The port of the host.</param>
-        protected void Connect(string host, ushort port)
+        protected void Connect(IPAddress ip, ushort port)
         {
             try
             {
                 Disconnect();
 
-                _handle = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _handle = new Socket(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 _handle.SetKeepAliveEx(KEEP_ALIVE_INTERVAL, KEEP_ALIVE_TIME);
-                _handle.Connect(host, port);
+                _handle.Connect(ip, port);
 
                 if (_handle.Connected)
                 {
@@ -388,7 +389,7 @@ namespace xClient.Core.Networking
                     {
                         case ReceiveType.Header:
                             {
-                                if (_readableDataLen >= HEADER_SIZE)
+                                if (_readableDataLen + _tempHeaderOffset >= HEADER_SIZE)
                                 { // we can read the header
                                     int headerLength = (_appendHeader)
                                         ? HEADER_SIZE - _tempHeaderOffset
@@ -432,7 +433,7 @@ namespace xClient.Core.Networking
                                     _readOffset += headerLength;
                                     _receiveState = ReceiveType.Payload;
                                 }
-                                else // _parentServer.HEADER_SIZE < _readableDataLen
+                                else // _readableDataLen < HEADER_SIZE
                                 {
                                     try
                                     {

@@ -9,25 +9,35 @@ namespace xServer.Core.Commands
     /* THIS PARTIAL CLASS SHOULD CONTAIN METHODS THAT MANIPULATE THE REGISTRY. */
     public static partial class CommandHandler
     {
+        
+
+        #region Registry Key
+        
         public static void HandleLoadRegistryKey(xServer.Core.Packets.ClientPackets.GetRegistryKeysResponse packet, Client client)
         {
             try
             {
-                // Make sure that we can use the packet.
-                if (packet.Matches != null && packet.Matches.Length > 0)
+                // Make sure that the client is in the correct state to handle the packet appropriately.
+                if (client != null && client.Value.FrmRe != null && !client.Value.FrmRe.IsDisposed || !client.Value.FrmRe.Disposing)
                 {
-                    // Make sure that the client is in the correct state to handle the packet appropriately.
-                    if (client != null && client.Value.FrmRe != null && !client.Value.FrmRe.IsDisposed || !client.Value.FrmRe.Disposing)
+                    if (!packet.IsError)
                     {
-                        client.Value.FrmRe.AddKeysToTree(packet.RootKey, packet.Matches);
+                        client.Value.FrmRe.AddKeys(packet.RootKey, packet.Matches);
+                    }
+                    else
+                    {
+                        client.Value.FrmRe.ShowErrorMessage(packet.ErrorMsg);
+                        //If root keys failed to load then close the form
+                        if (packet.RootKey == null)
+                        {
+                            //Invoke a closing of the form
+                            client.Value.FrmRe.PerformClose();
+                        }
                     }
                 }
             }
-            catch
-            { }
+            catch { }
         }
-
-        #region Registry Key Edit
 
         public static void HandleCreateRegistryKey(xServer.Core.Packets.ClientPackets.GetCreateRegistryKeyResponse packet, Client client)
         {
@@ -38,7 +48,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.AddKeyToTree(packet.ParentPath, packet.Match);
+                        client.Value.FrmRe.CreateNewKey(packet.ParentPath, packet.Match);
                     }
                     else
                     {
@@ -58,7 +68,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.RemoveKeyFromTree(packet.ParentPath, packet.KeyName);
+                        client.Value.FrmRe.RemoveKey(packet.ParentPath, packet.KeyName);
                     }
                     else
                     {
@@ -78,7 +88,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.RenameKeyFromTree(packet.ParentPath, packet.OldKeyName, packet.NewKeyName);
+                        client.Value.FrmRe.RenameKey(packet.ParentPath, packet.OldKeyName, packet.NewKeyName);
                     }
                     else
                     {
@@ -91,7 +101,7 @@ namespace xServer.Core.Commands
 
         #endregion
 
-        #region Registry Value Edit
+        #region Registry Value
 
         public static void HandleCreateRegistryValue(xServer.Core.Packets.ClientPackets.GetCreateRegistryValueResponse packet, Client client)
         {
@@ -102,7 +112,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.AddValueToList(packet.KeyPath, packet.Value);
+                        client.Value.FrmRe.CreateValue(packet.KeyPath, packet.Value);
                     }
                     else
                     {
@@ -122,7 +132,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.DeleteValueFromList(packet.KeyPath, packet.ValueName);
+                        client.Value.FrmRe.DeleteValue(packet.KeyPath, packet.ValueName);
                     }
                     else
                     {
@@ -142,7 +152,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.RenameValueFromList(packet.KeyPath, packet.OldValueName, packet.NewValueName);
+                        client.Value.FrmRe.RenameValue(packet.KeyPath, packet.OldValueName, packet.NewValueName);
                     }
                     else
                     {
@@ -162,7 +172,7 @@ namespace xServer.Core.Commands
                 {
                     if (!packet.IsError)
                     {
-                        client.Value.FrmRe.ChangeValueFromList(packet.KeyPath, packet.Value);
+                        client.Value.FrmRe.ChangeValue(packet.KeyPath, packet.Value);
                     }
                     else
                     {

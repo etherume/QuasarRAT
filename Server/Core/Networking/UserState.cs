@@ -25,6 +25,7 @@ namespace xServer.Core.Networking
         public string DownloadDirectory { get; set; }
 
         public FrmRemoteDesktop FrmRdp { get; set; }
+        public FrmRemoteWebcam FrmWebcam { get; set; }
         public FrmTaskManager FrmTm { get; set; }
         public FrmFileManager FrmFm { get; set; }
         public FrmRegistryEditor FrmRe { get; set; }
@@ -34,6 +35,8 @@ namespace xServer.Core.Networking
         public FrmKeylogger FrmKl { get; set; }
         public FrmReverseProxy FrmProxy { get; set; }
         public FrmPasswordRecovery FrmPass { get; set; }
+        public FrmConnections FrmCon { get; set; }
+
 
         public bool ReceivedLastDirectory { get; set; }
         public UnsafeStreamCodec StreamCodec { get; set; }
@@ -79,6 +82,8 @@ namespace xServer.Core.Networking
                 {
                     if (FrmRdp != null)
                         FrmRdp.Invoke((MethodInvoker)delegate { FrmRdp.Close(); });
+                    if (FrmWebcam != null)
+                        FrmWebcam.Invoke((MethodInvoker)delegate { FrmWebcam.Close(); });
                     if (FrmTm != null)
                         FrmTm.Invoke((MethodInvoker)delegate { FrmTm.Close(); });
                     if (FrmFm != null)
@@ -97,6 +102,8 @@ namespace xServer.Core.Networking
                         FrmProxy.Invoke((MethodInvoker)delegate { FrmProxy.Close(); });
                     if (FrmPass != null)
                         FrmPass.Invoke((MethodInvoker)delegate { FrmPass.Close(); });
+                    if (FrmCon != null)
+                        FrmCon.Invoke((MethodInvoker)delegate { FrmCon.Close(); });
                 }
                 catch (InvalidOperationException)
                 {
